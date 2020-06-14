@@ -3,7 +3,7 @@
 WORK IN PROGRESS!!!!!
 
 My current project - multifunction GUI application, with following functions (separate tabs):
-1. Current time - DONE - enhanced version 
+1. Current time - DONE 
 2. Alarm clock - NOT STARTED
 3. Countdown timer - DONE
 4. Stopwatch - NOT STARTED
