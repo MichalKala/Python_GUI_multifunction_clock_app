@@ -2,7 +2,7 @@
 
 WORK IN PROGRESS!!!!!
 
-My current project - miltifunction GUI application, with following functions (separate tabs):
+My current project - multifunction GUI application, with following functions (separate tabs):
 1. Current time - DONE
 2. Alarm clock - NOT STARTED
 3. Countdown timer - IN PROGRESS
