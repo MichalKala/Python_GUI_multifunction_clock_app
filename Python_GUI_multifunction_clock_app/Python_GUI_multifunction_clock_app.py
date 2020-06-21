@@ -58,7 +58,7 @@ obrazek = ttk.Label(TAB1, image=image).grid(column=2, row=0, columnspan=2, rowsp
 
 
 #Alarm Clock code
-ttk.Label(TAB2, text="Alarm clock - No widgets yet!").grid(column=0, row=0, padx=10, pady=10)
+ttk.Label(TAB2, text="alarm clock - No widgets yet!").grid(column=0, row=0, padx=10, pady=10)
 
 #Countdown timer code
 ttk.Label(TAB3, text="Set the time in seconds and press GO:").grid(column=0, row=0, padx=10, pady=10)
@@ -91,7 +91,42 @@ gobutton.grid(column=2, row=0, padx=10, pady=10)
 
 
 #Stopwatch code
-ttk.Label(TAB4, text="Stopwatch - No widgets yet!").grid(column=0, row=0, padx=10, pady=10)
+
+stopwatch_clock=ttk.Label(TAB4, font=("times", 50, "bold"), text=str(datetime.timedelta(seconds=0)))
+stopwatch_clock.grid(row=1, column=0, columnspan=4, rowspan=1, padx=10, pady=10)
+stopwatch_running = False
+def start_button_function(start_count):
+
+    if stopwatch_running:
+    
+        stopwatch_clock['text'] = str(datetime.timedelta(seconds=start_count))
+
+        if start_count > 0:
+        
+            gui.after(1000, start_button_function, start_count+1)
+
+def start_button_handle():
+    global stopwatch_running
+    stopwatch_running = True
+    start_button_function(1)
+
+start_button = ttk.Button(TAB4, text="START", command=start_button_handle)
+start_button.grid(column=0, row=2, padx=10, pady=10)
+
+def stop_button_handle():
+    global stopwatch_running
+    stopwatch_running = False
+
+stop_button = ttk.Button(TAB4, text="STOP", command=stop_button_handle)
+stop_button.grid(column=1, row=2, padx=10, pady=10)
+
+def reset_button_handle():
+    stopwatch_clock['text'] = str(datetime.timedelta(0))
+    global stopwatch_running
+    stopwatch_running = False
+
+reset_button = ttk.Button(TAB4, text="RESET", command=reset_button_handle)
+reset_button.grid(column=2, row=2, padx=10, pady=10)
 
 #About code
 ttk.Label(TAB5, text="\nThis app is created as part of Python programming self study.\n\nCreator: Michal Kala\n\nCheck my github profile:\n").grid(column=0, row=0)
