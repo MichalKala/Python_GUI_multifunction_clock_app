@@ -58,7 +58,52 @@ obrazek = ttk.Label(TAB1, image=image).grid(column=2, row=0, columnspan=2, rowsp
 
 
 #Alarm Clock code
-ttk.Label(TAB2, text="alarm clock - No widgets yet!").grid(column=0, row=0, padx=10, pady=10)
+ttk.Label(TAB2, font=("times", 12), text="Current time: ").grid(column=0, row=0, sticky=W, padx=5, pady=5)
+
+def tick2():
+    time_string = time.strftime("%H:%M:%S")
+    clock2.config(text=time_string)
+    clock2.after(200, tick2)
+
+
+clock2=ttk.Label(TAB2, font=("times", 12, "bold"))
+clock2.grid(row=1, column=0, sticky=W, padx=5, pady=5)
+tick2()
+
+ttk.Label(TAB2, font=("times", 12), text="Choose amount of time after which I wake you up: ").grid(column=0, columnspan=2, row=2, padx=5, pady=5)
+ttk.Label(TAB2, text="Hours:").grid(column=0, row=3, padx=10, pady=10, sticky=W)
+entry2 = ttk.Entry(TAB2, width = 5, font = 'Calibri 10')
+entry2.grid(column=1, row=3, padx=10, pady=10)
+
+ttk.Label(TAB2, text="Minutes:").grid(column=0, row=4, padx=10, pady=10, sticky=W)
+entry3 = ttk.Entry(TAB2, width = 5, font = 'Calibri 10')
+entry3.grid(column=1, row=4, padx=10, pady=10)
+
+alarm_clock=ttk.Label(TAB2, font=("times", 35, "bold"), text=str(datetime.timedelta(seconds=0)))
+alarm_clock.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+
+def alarm_countdown(alarm_count):
+    # change text in label        
+    alarm_clock['text'] = str(datetime.timedelta(seconds=alarm_count))
+
+    if alarm_count > 0:
+        # call countdown again after 1000ms (1s)
+        gui.after(1000, alarm_countdown, alarm_count-1)
+    if alarm_count == 0:
+        alarm_clock['foreground'] = "red"
+        webbrowser.open_new(r"https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+def setbutton_handle():
+    hours_collector = entry2.get()
+    minutes_collector = entry3.get()
+    hours_collector = int(hours_collector)
+    minutes_collector = int(minutes_collector)
+    ttk.Label(TAB2, font=("times", 12), text="OK I will wake you up in %d hours and %d minutes." % (hours_collector, minutes_collector)).grid(column=0, row=5, columnspan=2, padx=10, pady=10)
+    alarm_result = hours_collector * 3600 + minutes_collector * 60
+    alarm_countdown(alarm_result)
+
+setbutton = ttk.Button(TAB2, text="Set", command=setbutton_handle)
+setbutton.grid(column=2, row=4, padx=10, pady=10)
 
 #Countdown timer code
 ttk.Label(TAB3, text="Set the time in seconds and press GO:").grid(column=0, row=0, padx=10, pady=10)
